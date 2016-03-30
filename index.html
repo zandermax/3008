@@ -14,6 +14,8 @@
     <script type="text/javascript" src="js/materialize.min.js"></script>
 
     <script type="text/javascript" src="js/courses.js"></script>
+    <script type="text/javascript" src='js/sidebar.js'></script>
+
     <script type="text/javascript" src="js/cal.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,7 +24,6 @@
   <body>
     <div class="row" id="content">
       <div class="col s3" id="sidebar">
-        <div class="row">
           <div class="input-field">
             <input id="search" type="text">
             <label for="search">Search for courses...</label>
@@ -54,10 +55,9 @@
               </div>
             </li>
           </ul>
-          <ul class="collection">
-            <!-- <li class="collection-item">Alvin</li> -->
-          </ul>
-        </div>
+          <div style='overflow:scroll;height:80%'>
+            <ul class="collection"></ul>
+          </div>
       </div>
       <div class="col s9" id="calendar">
         <table class>
