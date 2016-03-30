@@ -4,7 +4,6 @@
 
   Need to handle 3hr classes?
 */
-
 var courses = [
   {
     "dept": "COMP",
