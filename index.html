@@ -8,6 +8,7 @@
   <head>
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="css/cal.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -20,10 +21,45 @@
 
   <body>
     <div class="row" id="content">
-      <div class="col s2" id="sidebar">
-        <p>Sidebar</p>
+      <div class="col s3" id="sidebar">
+        <div class="row">
+          <div class="input-field">
+            <input id="search" type="text">
+            <label for="search">Search for courses...</label>
+          </div>
+          <ul class="collapsible" style='padding:0;margin:0;' data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">call_split</i>Filter</div>
+              <div class="collapsible-body">
+                <p>
+                  <input type="checkbox" id="checkbox-morning" />
+                  <label for="checkbox-morning">Morning Classes</label>
+                </p>
+                <p>
+                  <input type="checkbox" id="checkbox-afternoon" />
+                  <label for="checkbox-afternoon">Afternoon Classes</label>
+                </p>
+                <p>
+                  <input type="checkbox" id="checkbox-night" />
+                  <label for="checkbox-night">Night Classes</label>
+                </p>
+                <p>
+                  <input type="checkbox" id="checkbox-compulsary" />
+                  <label for="checkbox-compulsary">Compulsary</label>
+                </p>
+                <p>
+                  <input type="checkbox" id="checkbox-electives" />
+                  <label for="checkbox-electives">Electives</label>
+                </p>
+              </div>
+            </li>
+          </ul>
+          <ul class="collection">
+            <!-- <li class="collection-item">Alvin</li> -->
+          </ul>
+        </div>
       </div>
-      <div class="col s10" id="calendar">
+      <div class="col s9" id="calendar">
         <table class>
           <thead>
             <tr>
@@ -39,8 +75,7 @@
           <tbody class='overflow-scroll'>
             <tr>
               <th>
-                08:35 -
-                 09:55
+                08:35 - 09:55
               </th>
               <td class="timeslot-error">Conflict</td>
               <td class="timeslot-temp">Temp</td>
@@ -50,8 +85,7 @@
             </tr>
             <tr>
               <th>
-                10:05 -
-                 11:25
+                10:05 - 11:25
               </th>
               <td></td>
               <td></td>
@@ -61,8 +95,7 @@
             </tr>
             <tr>
               <th>
-                11:35 -
-                 12:55
+                11:35 - 12:55
               </th>
               <td></td>
               <td></td>
@@ -72,8 +105,7 @@
             </tr>
             <tr>
               <th>
-                13:05 -
-                 14:25
+                13:05 - 14:25
               </th>
               <td></td>
               <td></td>
@@ -83,8 +115,7 @@
             </tr>
             <tr>
               <th>
-                14:35 -
-                 15:55
+                14:35 - 15:55
               </th>
               <td></td>
               <td></td>
@@ -94,8 +125,7 @@
             </tr>
             <tr>
               <th>
-                16:05 -
-                 17:25
+                16:05 - 17:25
               </th>
               <td></td>
               <td></td>
@@ -105,8 +135,7 @@
             </tr>
             <tr>
               <th>
-                17:35 -
-                 18:55
+                17:35 - 18:55
               </th>
               <td></td>
               <td></td>
@@ -116,8 +145,7 @@
             </tr>
             <tr>
               <th>
-                19:05 -
-                 20:25
+                19:05 - 20:25
               </th>
               <td></td>
               <td></td>
@@ -127,8 +155,7 @@
             </tr>
             <tr>
               <th>
-                20:35 -
-                 21:55
+                20:35 - 21:55
               </th>
               <td></td>
               <td></td>
@@ -140,6 +167,7 @@
         </table>
       </div>
 
+      <!-- Timeslot info modal -->
       <div id="course-info-modal" class="modal">
         <div class="modal-content">
           <h4 class="ci-modal-name">Introduction to Computer Science I</h4>
@@ -157,7 +185,6 @@
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat teal">Dismiss</a>
         </div>
       </div>
-
     </div>
   </body>
 </html>

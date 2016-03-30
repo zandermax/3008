@@ -1,18 +1,26 @@
 html, body, #content, #sidebar, #calendar {
 	height: 100%;
 }
-
+.filters {
+	height:200px;
+	overflow:scroll;
+}
+.collapsible-body p {
+    margin: 0 !important;
+    padding: 5px !important;
+}
 #content {
 	margin-bottom: 0px;
 }
-
 #sidebar {
-	background-color: #90A4AE;
-	overflow-y: hidden;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 #calendar {
 	overflow-y:scroll;
 	padding:0;
+	right:0;
+	position:absolute;
+	padding-left:2px;
 }
 
 #calendar table thead,
