@@ -1,0 +1,55 @@
+html, body, #content, #sidebar, #calendar {
+	height: 100%;
+}
+
+#content {
+	margin-bottom: 0px;
+}
+
+#sidebar {
+	background-color: #90A4AE;
+}
+
+#calendar {
+	/*background-color: #26A69A;*/
+	/*background-color: #F5F2F0;*/
+	/*background-color: #E57373;*/
+}
+
+#calendar tbody > tr {
+	height: 50px;
+}
+
+#calendar table thead,
+#calendar table th {
+	background-color: #F5F2F0;
+}
+
+#calendar tbody td {
+	border-left: 1px solid #D0D0D0;
+	transition: background-color 0.125s;
+}
+
+#calendar tbody td:hover {
+	background-color: #DDD;
+}
+
+#calendar tbody td p {
+	margin: 0;
+}
+
+.timeslot-course-name {
+	font-size: 1em;
+}
+
+.timeslot-course-info {
+	font-size: 0.8em;
+}
+
+.timeslot-error {
+	background-color: #E57373;
+}
+
+.timeslot-temp {
+	background-color: #FFF176;
+}

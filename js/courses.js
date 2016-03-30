@@ -1,4 +1,11 @@
-[
+/* TODO:
+  Do away with times to label timeslots in courses.json/courses.js?
+    -Using indicies will probably simplify finding the corresponding cell in the table
+
+  Need to handle 3hr classes?
+*/
+
+var courses = [
   {
     "dept": "COMP",
     "num": "1405",
@@ -204,4 +211,4 @@
       "location": "UC 231"
     }]
   }
-]
+];
