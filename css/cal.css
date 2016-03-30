@@ -8,25 +8,23 @@ html, body, #content, #sidebar, #calendar {
 
 #sidebar {
 	background-color: #90A4AE;
+	overflow-y: hidden;
 }
-
 #calendar {
-	/*background-color: #26A69A;*/
-	/*background-color: #F5F2F0;*/
-	/*background-color: #E57373;*/
-}
-
-#calendar tbody > tr {
-	height: 50px;
+	overflow-y:scroll;
+	padding:0;
 }
 
 #calendar table thead,
 #calendar table th {
 	background-color: #F5F2F0;
+	width:10px;
 }
 
 #calendar tbody td {
 	border-left: 1px solid #D0D0D0;
+	height: 80px;
+	width:80px;
 	transition: background-color 0.125s;
 }
 

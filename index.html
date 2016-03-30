@@ -5,150 +5,143 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="css/cal.css"/>
 
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
+<head>
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/cal.css" />
 
-        <script type="text/javascript" src="js/courses.js"></script>
-        <script type="text/javascript" src="js/cal.js"></script>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+  <script type="text/javascript" src="js/courses.js"></script>
+  <script type="text/javascript" src="js/cal.js"></script>
 
-    <body>
-        <div class="row" id="content">
-        <div class="col s2" id="sidebar">
-            <p>Sidebar</p>
-        </div>
-        <div class="col s10" id="calendar">
-            <table class>
-                <thead>
-                    <tr>
-                        <td>Time</td>
-                        <td>Monday</td>
-                        <td>Tuesday</td>
-                        <td>Wednesday</td>
-                        <td>Thursday</td>
-                        <td>Friday</td>
-                    </tr>
-                </thead>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
 
-                <tbody>
-                    <tr>
-                        <th>
-                            08:35 -
-                            <br>
-                            09:55
-                        </th>
-                        <td class="timeslot-error">Conflict</td>
-                        <td class="timeslot-temp">Temp</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            10:05 -
-                            <br>
-                            11:25
-                        </th>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            11:35 -
-                            <br>
-                            12:55
-                        </th>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            13:05 -
-                            <br>
-                            14:25
-                        </th>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            14:35 -
-                            <br>
-                            15:55
-                        </th>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            16:05 -
-                            <br>
-                            17:25
-                        </th>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            17:35 -
-                            <br>
-                            18:55
-                        </th>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            19:05 -
-                            <br>
-                            20:25
-                        </th>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                    </tr>
-                    <tr>
-                        <th>
-                            20:35 -
-                            <br>
-                            21:55
-                        </th>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                        <td>timeslot</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<body>
+  <div class="row" id="content">
+    <div class="col s2" id="sidebar">
+      <p>Sidebar</p>
     </div>
+    <div class="col s10" id="calendar">
+      <table class>
+        <thead>
+          <tr>
+            <td>Time</td>
+            <td>Monday</td>
+            <td>Tuesday</td>
+            <td>Wednesday</td>
+            <td>Thursday</td>
+            <td>Friday</td>
+          </tr>
+        </thead>
 
-    </body>
+        <tbody class='overflow-scroll'>
+          <tr>
+            <th>
+              08:35 -
+               09:55
+            </th>
+            <td class="timeslot-error">Conflict</td>
+            <td class="timeslot-temp">Temp</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+          </tr>
+          <tr>
+            <th>
+              10:05 -
+               11:25
+            </th>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+          </tr>
+          <tr>
+            <th>
+              11:35 -
+               12:55
+            </th>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+          </tr>
+          <tr>
+            <th>
+              13:05 -
+               14:25
+            </th>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+          </tr>
+          <tr>
+            <th>
+              14:35 -
+               15:55
+            </th>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+          </tr>
+          <tr>
+            <th>
+              16:05 -
+               17:25
+            </th>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+          </tr>
+          <tr>
+            <th>
+              17:35 -
+               18:55
+            </th>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+          </tr>
+          <tr>
+            <th>
+              19:05 -
+               20:25
+            </th>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+          </tr>
+          <tr>
+            <th>
+              20:35 -
+               21:55
+            </th>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+            <td>timeslot</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+
 </html>
