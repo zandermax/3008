@@ -1,40 +1,25 @@
 html, body, #content, #sidebar, #calendar {
 	height: 100%;
 }
-.filters {
-	height:200px;
-	overflow:scroll;
-}
-.collapsible-body p {
-    margin: 0 !important;
-    padding: 5px !important;
-}
+
 #content {
 	margin-bottom: 0px;
 }
 #sidebar {
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
-.collection-item{
-	cursor: pointer;
-}
-#calendar {
-	overflow-y:scroll;
-	padding:0;
-	right:0;
-	position:absolute;
-	padding-left:2px;
-}
 
+#calendar {
+	display:block;
+	height:100%;
+	overflow:scroll;
+	padding-left:2px;
+	padding-right:0;
+}
 #calendar table thead,
 #calendar table th {
 	background-color: #F5F2F0;
 	width:10px;
-}
-.collection-item:hover{
-	transition: opacity padding-left 0.25s;
-	padding-left:18px;
-	opacity: 0.8;
 }
 #calendar tbody td {
 	border-left: 1px solid #D0D0D0;
@@ -43,15 +28,38 @@ html, body, #content, #sidebar, #calendar {
 	width:80px;
 	transition: background-color 0.125s;
 }
-
 #calendar tbody td:hover {
 	background-color: #DDD;
 }
-
 #calendar tbody td p {
 	margin: 0;
 }
-
+#calendar table thead tr td {
+	text-align:center;
+	vertical-align: middle;
+}
+#calendar table thead {
+	font-weight:bold;
+}
+.modal-action {
+	color:#f5f5f5;
+}
+.filters {
+	height:200px;
+	overflow:scroll;
+}
+.collapsible-body p {
+    margin: 0 !important;
+    padding: 5px !important;
+}
+.collection-item{
+	cursor: pointer;
+}
+.collection-item:hover{
+	transition: opacity padding-left 0.25s;
+	padding-left:18px;
+	opacity: 0.8;
+}
 .timeslot-course-name {
 	font-size: 1em;
 }

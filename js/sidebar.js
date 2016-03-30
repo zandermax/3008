@@ -20,13 +20,12 @@
       f.forEach(function(e, i) {
         l.innerHTML += "<li class='collection-item' data-ci='" + i + "'>" + e.dept + " " + e.num + "<br/> " + e.name + "</li>"
       });
+      $(".collection-item").click(function() {
+        var c = window.courses[$(this).attr("data-ci")];
+        window.calendar.viewTSInfo(c, 0);
+      });
     };
     el.addEventListener('keyup', populateList, false);
     populateList();
-
-    $(".collection-item").click(function() {
-      var c = window.courses[$(this).attr("data-ci")];
-      window.calendar.viewTSInfo(c, 0);
-    });
   }, false);
 })();
