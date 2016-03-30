@@ -31,7 +31,11 @@ html, body, #content, #sidebar, #calendar {
 	background-color: #F5F2F0;
 	width:10px;
 }
-
+.collection-item:hover{
+	transition: opacity padding-left 0.25s;
+	padding-left:18px;
+	opacity: 0.8;
+}
 #calendar tbody td {
 	border-left: 1px solid #D0D0D0;
 	border-bottom: 1px solid #D0D0D0;

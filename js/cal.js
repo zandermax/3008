@@ -26,7 +26,10 @@
   		timeStr += ", " + ts.startTime + "-" + ts.endTime;
 
   		$("#course-info-modal .ci-modal-time").text(timeStr);
-  		$("#course-info-modal").openModal();
+  		$("#course-info-modal").openModal({
+        in_duration:100,
+        out_duration:100
+      });
   	},
     removeCourse: function(c, tsi) {
       var timeslot = c.timeslots[tsi];
