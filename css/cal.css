@@ -23,6 +23,7 @@ html, body, #content, #sidebar, #calendar {
 
 #calendar tbody td {
 	border-left: 1px solid #D0D0D0;
+	border-bottom: 1px solid #D0D0D0;
 	height: 80px;
 	width:80px;
 	transition: background-color 0.125s;
@@ -42,6 +43,10 @@ html, body, #content, #sidebar, #calendar {
 
 .timeslot-course-info {
 	font-size: 0.8em;
+}
+
+.timeslot-filled {
+	background-color: #90CAf9;
 }
 
 .timeslot-error {
