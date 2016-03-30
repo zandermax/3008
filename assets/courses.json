@@ -1,5 +1,6 @@
-{
-  "COMP": [{
+[
+  {
+    "dept": "COMP",
     "num": "1405",
     "name": "Intro to Computer Science I",
     "prereqs": [],
@@ -10,7 +11,9 @@
       "prof": "Pat Morin",
       "location": "LA C164"
     }]
-  }, {
+  },
+  {
+    "dept": "COMP",
     "num": "1406",
     "name": "Intro to Computer Science II",
     "prereqs": ["1405"],
@@ -21,7 +24,9 @@
       "prof": "Marc Lanthier",
       "location": "MC 2000"
     }]
-  }, {
+  },
+  {
+    "dept": "COMP",
     "num": "2406",
     "name": "Fundamentals of Web Applications",
     "prereqs": ["1406"],
@@ -32,8 +37,9 @@
       "prof": "Anil Somayaji",
       "location": "UC 231"
     }]
-  }],
-  "LING": [{
+  },
+  {
+    "dept": "LING",
     "num": "1001",
     "name": "Introduction to Linguistics",
     "prereqs": [],
@@ -50,7 +56,9 @@
       "prof": "Randall Gess",
       "location": "AZ 102"
     }]
-  }, {
+  },
+  {
+    "dept": "LING",
     "num": "2504",
     "name": "Language and Communication",
     "prereqs": ["1001"],
@@ -61,7 +69,9 @@
       "prof": "Katherine Wayne",
       "location": "LA C264"
     }]
-  }, {
+  },
+  {
+    "dept": "LING",
     "num": "3005",
     "name": "Morphology",
     "prereqs": ["1001"],
@@ -78,8 +88,9 @@
       "prof": "Janna Fox",
       "location": "AZ 101"
     }]
-  }],
-  "PHIL": [{
+  },
+  {
+    "dept": "PHIL",
     "num": "1200",
     "name": "The Meaning of Life",
     "prereqs": [],
@@ -90,7 +101,9 @@
       "prof": "Ken Ferguson",
       "location": "TB 360"
     }]
-  }, {
+  },
+  {
+    "dept": "PHIL",
     "num": "2001",
     "name": "Introduction to Symbolic Logic",
     "prereqs": [],
@@ -107,8 +120,9 @@
       "prof": "Gabriele Contessa",
       "location": "SA THB"
     }]
-  }],
-  "PSYC": [{
+  },
+  {
+    "dept": "PSYC",
     "num": "1001",
     "name": "Intorduction to Psychology I",
     "prereqs": [],
@@ -131,7 +145,9 @@
       "prof": "Jo-Anne LeFevre",
       "location": "AZ 101"
     }]
-  }, {
+  },
+  {
+    "dept": "PSYC",
     "num": "1002",
     "name": "Introduction to Psychology II",
     "prereqs": ["1001"],
@@ -148,8 +164,9 @@
       "prof": "Kim O'Neil",
       "location": "SA THB"
     }]
-  }],
-  "CGSC": [{
+  },
+  {
+    "dept": "CGSC",
     "num": "1001",
     "name": "Mysteries of the Mind",
     "prereqs": [],
@@ -160,7 +177,9 @@
       "prof": "Jim Davies",
       "location": "SA THB"
     }]
-  }, {
+  },
+  {
+    "dept": "CGSC",
     "num": "2002",
     "name": "Theories and Methods in Cognitive Science",
     "prereqs": [],
@@ -171,7 +190,9 @@
       "prof": "Kathie Galotti",
       "location": "LA C264"
     }]
-  }, {
+  },
+  {
+    "dept": "CGSC",
     "num": "3004",
     "name": "Philosophy in Cognitive Science",
     "prereqs": [],
@@ -182,5 +203,5 @@
       "prof": "Jim Davies",
       "location": "UC 231"
     }]
-  }]
-}
+  }
+]
