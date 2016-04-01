@@ -8,7 +8,6 @@
   <head>
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="css/cal.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -28,9 +27,9 @@
             <input id="search" type="text">
             <label for="search">Search for courses...</label>
           </div>
-          <ul class="collapsible" style='padding:0;margin:0;' data-collapsible="accordion">
+          <ul class="collapsible" data-collapsible="accordion">
             <li>
-              <div class="collapsible-header"><i class="material-icons">call_split</i>Filter</div>
+              <div class="collapsible-header"><i class="mdi-communication-call-split"></i>Filter</div>
               <div class="collapsible-body">
                 <p>
                   <input type="checkbox" id="checkbox-morning" />
@@ -55,7 +54,7 @@
               </div>
             </li>
           </ul>
-          <div style='overflow:scroll;height:80%'>
+          <div class="search-results">
             <ul class="collection"></ul>
           </div>
       </div>

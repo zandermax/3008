@@ -9,10 +9,20 @@ html, body, #content, #sidebar, #calendar {
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
+#sidebar > ul {
+    padding:0;
+    margin:0;
+}
+
+#sidebar > .search-results {
+    overflow: auto;
+    height:80%;
+}
+
 #calendar {
 	display:block;
 	height:100%;
-	overflow:scroll;
+	overflow:auto;
 	padding-left:2px;
 	padding-right:0;
 }
@@ -46,7 +56,7 @@ html, body, #content, #sidebar, #calendar {
 }
 .filters {
 	height:200px;
-	overflow:scroll;
+	overflow:auto;
 }
 .collapsible-body p {
     margin: 0 !important;
