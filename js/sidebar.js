@@ -29,12 +29,20 @@
         var tsHtml = '';
 
         e.timeslots.forEach(function(ts, j) {
+          // Format time string
+          var weekdays = ["Sunday", "Monday", "Tuesday","Wednesday",
+                          "Thursday", "Friday", "Saturday"];
+          var timeStr = "";
+          for (var di = 0; di < ts.days.length; ++di)
+            timeStr += " " + weekdays[ts.days[di]];
+          timeStr += ", " + ts.startTime + "-" + ts.endTime;
+
           var id = "ts-" + i + "-" + j;
           tsHtml += "<input type='checkbox' data-tsi='" + j + "' id='" + id + "'/>" +
-                    "<label for='" + id + "'>" + ts.startTime + " - " + ts.endTime + " (" + ts.prof + ")</label><br/>";
+                    "<label for='" + id + "'>" + timeStr + " (" + ts.prof + ")</label><br/>";
         });
 
-
+        // Add entry for search result
         l.innerHTML += "<li data-ci='" + i + "'>" + 
                           "<div class='collapsible-header'>" +
                             e.dept + " " + e.num + "<br/> " + e.name +
@@ -47,6 +55,7 @@
                         "</li>";
       });
 
+      // Timeslot checkbox handler
       $(".search-results ul > li .collapsible-body input[type=checkbox]").change(function() {
         var c = courses[$(this).closest("li").attr("data-ci")];
         var tsi = $(this).attr("data-tsi");
@@ -56,13 +65,14 @@
         else
           calendar.removeCourse(c, tsi);
 
-        // Remove other timeslots for this course
+        // Uncheck/remove other timeslots for this course
         $(this).siblings("input[type=checkbox]").each(function() {
           $(this).attr("checked", false);
           calendar.removeCourse(c, $(this).attr("data-tsi"));
         });
       });
     };
+
     el.addEventListener('keyup', populateList, false);
     populateList();
   }, false);
