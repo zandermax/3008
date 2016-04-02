@@ -47,10 +47,20 @@
                         "</li>";
       });
 
-      $(".collection-item").click(function() {
-        /* TODO: expand and show timeslots */
-        var c = window.courses[$(this).attr("data-ci")];
-        window.calendar.viewTSInfo(c, 0);
+      $(".search-results ul > li .collapsible-body input[type=checkbox]").change(function() {
+        var c = courses[$(this).closest("li").attr("data-ci")];
+        var tsi = $(this).attr("data-tsi");
+
+        if ($(this).is(":checked"))
+          calendar.addCourse(c, tsi);
+        else
+          calendar.removeCourse(c, tsi);
+
+        // Remove other timeslots for this course
+        $(this).siblings("input[type=checkbox]").each(function() {
+          $(this).attr("checked", false);
+          calendar.removeCourse(c, $(this).attr("data-tsi"));
+        });
       });
     };
     el.addEventListener('keyup', populateList, false);

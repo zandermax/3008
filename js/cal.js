@@ -36,7 +36,7 @@
 
       this.findTSCell(timeslot, function(cells) {
         for (var i = 0; i < cells.length; ++i) {
-					cells[i].removeClass("timeslot-filled");
+					cells[i].removeClass("timeslot-temp");
 					cells[i].attr("data-ci", null);
 					cells[i].attr("data-tsi", null);
 					cells[i].html("");
@@ -52,7 +52,7 @@
           "<p class='timeslot-course-info'>" + timeslot.location + "</p>";
 
         for (var i = 0; i < cells.length; ++i) {
-        	cells[i].addClass("timeslot-filled");
+        	cells[i].addClass("timeslot-temp");
         	cells[i].attr("data-ci", courses.indexOf(c));
         	cells[i].attr("data-tsi", tsi);
           cells[i].html(h);
