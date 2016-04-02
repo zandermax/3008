@@ -57,7 +57,7 @@ var courses = [
       "location": "TB 360"
     }, {
       "days": [3],
-      "startTime": "18:05",
+      "startTime": "19:05",
       "endTime": "20:25",
       "prof": "Randall Gess",
       "location": "AZ 102"
@@ -134,13 +134,13 @@ var courses = [
     "prereqs": [],
     "timeslots": [{
       "days": [1],
-      "startTime": "18:05",
+      "startTime": "19:05",
       "endTime": "20:25",
       "prof": "Peter Aubin",
       "location": "MC 2000"
     }, {
       "days": [2],
-      "startTime": "18:05",
+      "startTime": "19:05",
       "endTime": "20:25",
       "prof": "Kim O'Neil",
       "location": "SA KMTH"

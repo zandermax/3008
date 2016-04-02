@@ -55,7 +55,6 @@
           return filters[k.id](e);
         });
       })
-      console.log(f.length);
       // Add results to list
       f.forEach(function(e, i) {
         var tsHtml = '';
@@ -91,12 +90,7 @@
       $(".search-results ul > li .collapsible-body input[type=checkbox]").change(function() {
         var c = courses[$(this).closest("li").attr("data-ci")];
         var tsi = $(this).attr("data-tsi");
-
-        if ($(this).is(":checked"))
-          calendar.addCourse(c, tsi);
-        else
-          calendar.removeCourse(c, tsi);
-
+        calendar[$(this).is(":checked") ? 'addCourse' : 'removeCourse'](c, tsi);
         // Uncheck/remove other timeslots for this course
         $(this).siblings("input[type=checkbox]").each(function() {
           $(this).attr("checked", false);
