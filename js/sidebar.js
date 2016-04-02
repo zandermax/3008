@@ -1,14 +1,31 @@
 (function() {
-'use strict';
+  'use strict';
   document.addEventListener('DOMContentLoaded', function() {
     var el = document.querySelector('#search');
+    var courseFilters = $('.course-filters input[type=checkbox]:checked');
+
+    var filters = {
+      'checkbox-morning': function(e){
+        if(typeof e !== 'string') throw Error('requires[string]');
+        return moment(e, 'h:mma').isBefore(moment('12:00pm', 'h:mma'));
+      },
+      'checkbox-afternoon': function(e){
+        if(typeof e !== 'string') throw Error('requires[string]');
+        return moment(e, 'h:mma').isAfter(moment('12:00pm', 'h:mma')) &&
+               moment(e, 'h:mma').isBefore(moment('5:00pm', 'h:mma'));
+      },
+      'checkbox-night': function(e){
+        if(typeof e !== 'string') throw Error('requires[string]');
+        return moment(e, 'h:mma').isAfter(moment('5:00pm', 'h:mma'))
+      }
+    };
 
     var populateList = function() {
       var v = el.value;
       var l = document.querySelector('.search-results ul');
       l.innerHTML = '';
 
-      var f = courses.filter(function(e) {
+      var f = v ? courses.filter(function(e) {
         var keys = Object.keys(e);
 
         // Combine course's key values into one string to match against
@@ -22,16 +39,18 @@
         return v.split(' ').every(function(element) {
           return str.toLowerCase().indexOf(element.toLowerCase()) > -1;
         });
-      });
+      }) : courses;
 
+      
       // Add results to list
       f.forEach(function(e, i) {
         var tsHtml = '';
 
         e.timeslots.forEach(function(ts, j) {
           // Format time string
-          var weekdays = ["Sunday", "Monday", "Tuesday","Wednesday",
-                          "Thursday", "Friday", "Saturday"];
+          var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday"
+          ];
           var timeStr = "";
           for (var di = 0; di < ts.days.length; ++di)
             timeStr += " " + weekdays[ts.days[di]];
@@ -39,20 +58,19 @@
 
           var id = "ts-" + i + "-" + j;
           tsHtml += "<input type='checkbox' data-tsi='" + j + "' id='" + id + "'/>" +
-                    "<label for='" + id + "'>" + timeStr + " (" + ts.prof + ")</label><br/>";
+            "<label for='" + id + "'>" + timeStr + " (" + ts.prof + ")</label><br/>";
         });
 
         // Add entry for search result
-        l.innerHTML += "<li data-ci='" + i + "'>" + 
-                          "<div class='collapsible-header'>" +
-                            e.dept + " " + e.num + "<br/> " + e.name +
-                          "</div>" +
-
-                          "<div class='collapsible-body'>" +
-                            "<b>Timeslots</b><br/>" +
-                            tsHtml +
-                          "</div>" +
-                        "</li>";
+        l.innerHTML += "<li data-ci='" + courses.indexOf(e) + "'>" +
+          "<div class='collapsible-header'>" +
+          e.dept + " " + e.num + "<br/> " + e.name +
+          "</div>" +
+          "<div class='collapsible-body'>" +
+          "<b>Timeslots</b><br/>" +
+          tsHtml +
+          "</div>" +
+          "</li>";
       });
 
       // Timeslot checkbox handler
@@ -72,7 +90,7 @@
         });
       });
     };
-
+    courseFilters.on('change', populateList);
     el.addEventListener('keyup', populateList, false);
     populateList();
   }, false);
