@@ -2,22 +2,31 @@
   'use strict';
   document.addEventListener('DOMContentLoaded', function() {
     var el = document.querySelector('#search');
-    var courseFilters = $('.course-filters input[type=checkbox]:checked');
+    var courseFilters = $('.course-filters input[type=checkbox]');
 
     var filters = {
       'checkbox-morning': function(e){
-        if(typeof e !== 'string') throw Error('requires[string]');
-        return moment(e, 'h:mma').isBefore(moment('12:00pm', 'h:mma'));
+        if(typeof e !== 'object') throw Error('requires[object]');
+        return e.timeslots.some(function(t){
+          console.log(moment(t.startTime, 'h:mm').isBefore(moment('12:00', 'h:mm')));
+          return moment(t.startTime, 'h:mm').isBefore(moment('12:00', 'h:mm'));
+        });
       },
       'checkbox-afternoon': function(e){
-        if(typeof e !== 'string') throw Error('requires[string]');
-        return moment(e, 'h:mma').isAfter(moment('12:00pm', 'h:mma')) &&
-               moment(e, 'h:mma').isBefore(moment('5:00pm', 'h:mma'));
+        if(typeof e !== 'object') throw Error('requires[object]');
+        return e.timeslots.some(function(t){
+          return moment(t.startTime, 'h:mm').isAfter(moment('12:00', 'h:mm')) &&
+                 moment(t.startTime, 'h:mm').isBefore(moment('17:00', 'h:mm'));
+        });
       },
       'checkbox-night': function(e){
-        if(typeof e !== 'string') throw Error('requires[string]');
-        return moment(e, 'h:mma').isAfter(moment('5:00pm', 'h:mma'))
-      }
+        if(typeof e !== 'object') throw Error('requires[object]');
+        return e.timeslots.some(function(t){
+          return moment(t.startTime, 'h:mm').isAfter(moment('17:00', 'h:mm'));
+        });
+      },
+      'checkbox-compulsary': function(){return true},
+      'checkbox-electives':  function(){return true}
     };
 
     var populateList = function() {
@@ -41,7 +50,12 @@
         });
       }) : courses;
 
-      
+      f = f.filter(function(e){
+        return [].every.call($('.course-filters input[type=checkbox]:checked'), function(k){
+          return filters[k.id](e);
+        });
+      })
+      console.log(f.length);
       // Add results to list
       f.forEach(function(e, i) {
         var tsHtml = '';
