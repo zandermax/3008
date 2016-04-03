@@ -8,7 +8,6 @@
       'checkbox-morning': function(e){
         if(typeof e !== 'object') throw Error('requires[object]');
         return e.timeslots.some(function(t){
-          console.log(moment(t.startTime, 'h:mm').isBefore(moment('12:00', 'h:mm')));
           return moment(t.startTime, 'h:mm').isBefore(moment('12:00', 'h:mm'));
         });
       },
@@ -50,11 +49,16 @@
         });
       }) : courses;
 
+      // Apply selected filters
       f = f.filter(function(e){
-        return [].every.call($('.course-filters input[type=checkbox]:checked'), function(k){
-          return filters[k.id](e);
+        var checked = $('.course-filters input[type=checkbox]:checked');
+        var pass = !checked.length;
+        checked.each(function() {
+          pass |= filters[this.id](e);
         });
-      })
+        return pass;
+      });
+
       // Add results to list
       f.forEach(function(e, i) {
         var tsHtml = '';
