@@ -1,10 +1,3 @@
-/**
- * 	Need to handle 3hr classes?
- *	Do away with times to label timeslots in courses.json/courses.js
- *		-Using indicies will simplify finding the corresponding cell in the table
- * @param  {[type]} function( [description]
- * @return {[type]}           [description]
- */
 (function() {
   'use strict';
   window.calendar = {
@@ -31,39 +24,58 @@
         out_duration:100
       });
   	},
-    removeCourse: function(c, tsi) {
-    	// Remove course from calendar
-      var timeslot = c.timeslots[tsi];
+    updateView: function() {
+    	// Clear all cells
+    	$("#calendar > table > tbody > tr > td").each(function() {
+    		$(this).removeClass("timeslot-temp");
+    		// TODO: remove class for "about to be removed"
+    		$(this).html("");
+    	});
 
-      // Undo DOM changes
-      var cells = this.findTSCells(timeslot);
-      for (var i = 0; i < cells.length; ++i) {
-				cells[i].removeClass("timeslot-temp");
-				cells[i].attr("data-ci", null);
-				cells[i].attr("data-tsi", null);
-				cells[i].html("");
-      }
+    	courses.forEach(function(c, ci) {
+    		c.timeslots.forEach(function(ts, tsi) {
+    			var cells = calendar.findTSCells(ts);
+
+    			if (ts.selected || ts.added) {
+    				var h = "<p class='timeslot-course-name'>" + c.dept + " " + c.num + "</p>" +
+	      						"<p class='timeslot-course-info'>" + ts.prof + "</p>" +
+	      						"<p class='timeslot-course-info'>" + ts.location + "</p>";
+	      		
+	      		// If course is on calendar in any way (even temporarily), show its info
+	      		cells.forEach(function(cell) {
+	      			cell.addClass("timeslot-temp");
+	    				cell.attr("data-ci", ci);
+	    				cell.attr("data-tsi", tsi);
+	      			cell.html(h);
+
+	      			// Course only selected --> queued to be added
+	      			if (!ts.added)
+	      				cell.addClass("timeslot-temp");
+
+	      			// Course only added --> queued to be removed
+	      			else if (!selected) {
+	      				/* TODO: add class for "about to be removed" */
+	      			}
+	      		});
+    			}
+    		});
+    	});
     },
-    addCourse: function(c, tsi) {
-    	// Add course to the calendar
-      var timeslot = c.timeslots[tsi];
+    undoChanges: function() {
+    	courses.forEach(function(c, ci) {
+    		c.timeslots.forEach(function(ts, tsi) {
+    			// Undo add
+    			if (!ts.added && ts.selected)
+    				ts.selected = false;
 
-      var cells = this.findTSCells(timeslot);
-	    var h = "<p class='timeslot-course-name'>" + c.dept + " " + c.num + "</p>" +
-	      "<p class='timeslot-course-info'>" + timeslot.prof + "</p>" +
-	      "<p class='timeslot-course-info'>" + timeslot.location + "</p>";
-
-	    // Add for each day the class occurs on
-	    for (var i = 0; i < cells.length; ++i) {
-	    	cells[i].addClass("timeslot-temp");
-	    	cells[i].attr("data-ci", courses.indexOf(c));
-	    	cells[i].attr("data-tsi", tsi);
-	      cells[i].html(h);
-	    }
+    			// Undo remove
+    			else if (ts.added && !ts.selected)
+    				ts.selected = true;
+    		});
+    	});
     },
     findTSCells: function(ts) {
     	// Find the DOM elements in the calendar for the timeslot
-
     	var res = [];
       // Find row
       $("#calendar > table > tbody > tr > th").each(function() {
@@ -109,5 +121,11 @@ $(document).ready(function(){
 
   			calendar.viewTSInfo(c, tsi);
 		}
+	});
+
+	$("#calendar .btn-discard").click(function() {
+		calendar.undoChanges();
+		calendar.updateView();
+		sidebar.updateTimeslots();
 	});
 });

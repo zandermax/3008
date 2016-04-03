@@ -51,6 +51,10 @@ html, body, #content, #sidebar, #calendar {
 #calendar table thead {
 	font-weight:bold;
 }
+.fixed-action-btn {
+	bottom: 20px;
+	right: 25px;
+}
 .modal-action {
 	color:#f5f5f5;
 }
