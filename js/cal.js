@@ -200,12 +200,14 @@ $(document).ready(function(){
 		var cell = $(this);
 
 		// Show timeslot info for course
-		if (cell.hasClass("timeslot-filled") && !cell.hasClass("timeslot-dequeued")) {
-  		calendar.viewTSInfo(cell.attr("data-ci"), cell.attr("data-tsi"));
+		if (!cell.hasClass("timeslot-dequeued")) {
+			if (cell.hasClass("timeslot-filled")) {
+  			calendar.viewTSInfo(cell.attr("data-ci"), cell.attr("data-tsi"));
 
-  	// Show timeslot search modal if empty
-		} else if (!cell.hasClass("timeslot-queued")) {
-			calendar.searchTSCourses(cell);
+	  	// Show timeslot search modal if empty
+			} else if (!cell.hasClass("timeslot-queued")) {
+				calendar.searchTSCourses(cell);
+			}
 		}
 	});
 
