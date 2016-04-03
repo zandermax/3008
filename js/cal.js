@@ -30,7 +30,7 @@
     		$(this).removeClass("timeslot-queued");
     		$(this).removeClass("timeslot-dequeued");
     		$(this).removeClass("timeslot-filled");
-    		$(this).html("<i class='mdi-content-add'></i>");
+    		$(this).html("");
     	});
 
     	$("#fabs").hide();
@@ -116,7 +116,9 @@
     	// True if the calendar table cell doesn't have a course or temp course in it
     	var cells = this.findTSCells(ts);
     	for (var i = 0 ; i < cells.length; ++i) {
-    		if (cells[i].hasClass("timeslot-filled") || cells[i].hasClass("timeslot-queued"))
+    		if (cells[i].hasClass("timeslot-filled") ||
+    				cells[i].hasClass("timeslot-queued") ||
+    				cells[i].hasClass("timeslot-dequeued"))
     			return false;
     	}
     	return true;
@@ -204,6 +206,24 @@ $(document).ready(function(){
 		} else if (!cell.hasClass("timeslot-queued")) {
 			calendar.searchTSCourses(cell);
 		}
+	});
+
+	var showHidePlus = function(cell, show) {
+		if (!cell.hasClass("timeslot-queued") &&
+			  !cell.hasClass("timeslot-dequeued") &&
+			  !cell.hasClass("timeslot-filled")) {
+			if (show)
+				cell.html("<i class='mdi-content-add'></i>");
+			else
+				cell.html("");
+		}
+	};
+
+	$("#calendar table tbody tr td").hover(function() {
+		showHidePlus($(this), true);
+	},
+	function() {
+		showHidePlus($(this), false);
 	});
 
 	$("#calendar .btn-apply").click(function() {
