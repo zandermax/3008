@@ -31,10 +31,10 @@
         var tsi = $(this).closest(".timeslot-row").attr("data-tsi");
 
         // Update timeslot checkboxes to reflect calendar state
-        if (courses[ci].timeslots[tsi].selected || courses[ci].timeslots[tsi].added)
-          $(this).attr("checked", true);
+        if (courses[ci].timeslots[tsi].selected)
+          $(this).prop("checked", true);
         else {
-          $(this).attr("checked", false);
+          $(this).prop("checked", false);
 
           // Warn of course conflicts
           if (!calendar.isTSEmpty(courses[ci].timeslots[tsi])) {
@@ -125,7 +125,7 @@
 
         // Uncheck/remove other timeslots for this course
         $(this).siblings("input[type=checkbox]").each(function() {
-          $(this).attr("checked", false);
+          $(this).prop("checked", false);
           courses[ci].timeslots[$(this).closest(".timeslot-row").attr("data-tsi")].selected = false;
         });
 

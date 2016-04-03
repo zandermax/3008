@@ -46,14 +46,11 @@ html, body, #content, #sidebar, #calendar {
 #calendar table thead {
 	font-weight:bold;
 }
-.input-field {
-	height:10%;
-}
 .sidebar-scroll {
 	padding-top:0;
 	height:85%;
 	padding:5px;
-	overflow:scroll;
+	overflow:auto;
 }
 .fixed-action-btn {
 	bottom: 20px;
@@ -95,7 +92,7 @@ html, body, #content, #sidebar, #calendar {
 	font-size: 0.8em;
 }
 
-.timeslot-filled {
+.timeslot-queued {
 	background-color: #90CAf9;
 }
 
@@ -103,7 +100,7 @@ html, body, #content, #sidebar, #calendar {
 	border: 3px solid #E57373 !important;
 }
 
-.timeslot-temp {
+.timeslot-dequeued {
 	background-color: #FFF176;
 }
 

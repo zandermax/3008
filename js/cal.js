@@ -27,8 +27,8 @@
     updateView: function() {
     	// Clear all cells
     	$("#calendar > table > tbody > tr > td").each(function() {
-    		$(this).removeClass("timeslot-temp");
-    		// TODO: remove class for "about to be removed"
+    		$(this).removeClass("timeslot-queued");
+    		$(this).removeClass("timeslot-dequeued");
     		$(this).html("");
     	});
 
@@ -43,21 +43,32 @@
 	      		
 	      		// If course is on calendar in any way (even temporarily), show its info
 	      		cells.forEach(function(cell) {
-	      			cell.addClass("timeslot-temp");
 	    				cell.attr("data-ci", ci);
 	    				cell.attr("data-tsi", tsi);
 	      			cell.html(h);
 
 	      			// Course only selected --> queued to be added
 	      			if (!ts.added)
-	      				cell.addClass("timeslot-temp");
+	      				cell.addClass("timeslot-queued");
 
 	      			// Course only added --> queued to be removed
-	      			else if (!selected) {
-	      				/* TODO: add class for "about to be removed" */
-	      			}
+	      			else if (!ts.selected)
+	      				cell.addClass("timeslot-dequeued");
 	      		});
     			}
+    		});
+    	});
+    },
+    applyChanges: function() {
+    	courses.forEach(function(c, ci) {
+    		c.timeslots.forEach(function(ts, tsi) {
+    			// Add course
+    			if (ts.selected && !ts.added)
+    				ts.added = true;
+
+    			// Remove course
+    			else if (!ts.selected && ts.added)
+    				ts.added = false;
     		});
     	});
     },
@@ -65,11 +76,11 @@
     	courses.forEach(function(c, ci) {
     		c.timeslots.forEach(function(ts, tsi) {
     			// Undo add
-    			if (!ts.added && ts.selected)
+    			if (ts.selected && !ts.added)
     				ts.selected = false;
 
     			// Undo remove
-    			else if (ts.added && !ts.selected)
+    			else if (!ts.selected && ts.added)
     				ts.selected = true;
     		});
     	});
@@ -91,7 +102,7 @@
     	// True if the calendar table cell doesn't have a course or temp course in it
     	var cells = this.findTSCells(ts);
     	for (var i = 0 ; i < cells.length; ++i) {
-    		if (cells[i].hasClass("timeslot-filled") || cells[i].hasClass("timeslot-temp"))
+    		if (cells[i].hasClass("timeslot-filled") || cells[i].hasClass("timeslot-queued"))
     			return false;
     	}
     	return true;
@@ -121,6 +132,12 @@ $(document).ready(function(){
 
   			calendar.viewTSInfo(c, tsi);
 		}
+	});
+
+	$("#calendar .btn-apply").click(function() {
+		calendar.applyChanges();
+		calendar.updateView();
+		sidebar.updateTimeslots();
 	});
 
 	$("#calendar .btn-discard").click(function() {
