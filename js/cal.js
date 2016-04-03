@@ -33,6 +33,8 @@
     		$(this).html("");
     	});
 
+    	$("#fabs").hide();
+
     	courses.forEach(function(c, ci) {
     		c.timeslots.forEach(function(ts, tsi) {
     			var cells = calendar.findTSCells(ts);
@@ -51,13 +53,16 @@
 	      			if (ts.added) {
 	      				cell.addClass("timeslot-filled");
 
-	      				if (!ts.selected)
+	      				if (!ts.selected) {
 	      					// Course only added --> queued to be removed
 	      					cell.addClass("timeslot-dequeued");
-	      			}
-	      			// Course only selected --> queued to be added
-	      			else
+	      					$("#fabs").show();
+	      				}
+	      			}	else {
+	      				// Course only selected --> queued to be added
 	      				cell.addClass("timeslot-queued");
+	      				$("#fabs").show();
+	      			}
 	      		});
     			}
     		});
