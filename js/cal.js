@@ -230,12 +230,14 @@ $(document).ready(function(){
 		calendar.applyChanges();
 		calendar.updateView();
 		sidebar.updateTimeslots();
+		Materialize.toast('Changes applied', 4000);
 	});
 
 	$("#calendar .btn-discard").click(function() {
 		calendar.undoChanges();
 		calendar.updateView();
 		sidebar.updateTimeslots();
+		Materialize.toast('Changes discarded', 4000);
 	});
 
 	calendar.updateView();
