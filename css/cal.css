@@ -174,3 +174,6 @@ html, body{
 .switch span {
 	color: white
 }
+#modal-remove-btn {
+	margin-right: 10px;
+}

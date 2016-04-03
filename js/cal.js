@@ -3,10 +3,13 @@
   window.calendar = {
   	weekdays: ["Sunday", "Monday", "Tuesday","Wednesday",
   						 "Thursday", "Friday", "Saturday"],
-  	viewTSInfo: function(c, tsi) {
+  	viewTSInfo: function(ci, tsi) {
+  		var c = courses[ci];
   		var ts = c.timeslots[tsi];
 
   		// Populate modal
+  		$("#course-info-modal").attr("data-ci", ci);
+  		$("#course-info-modal").attr("data-tsi", tsi);
   		$("#course-info-modal .ci-modal-name").text(c.name);
   		$("#course-info-modal .ci-modal-cc").text(c.dept + " " + c.num);
 			$("#course-info-modal .ci-modal-prof").text(ts.prof);
@@ -197,10 +200,8 @@ $(document).ready(function(){
 		var cell = $(this);
 
 		// Show timeslot info for course
-		if (cell.hasClass("timeslot-filled")) {
-			var c = courses[cell.attr("data-ci")];
-  		var tsi = cell.attr("data-tsi");
-  		calendar.viewTSInfo(c, tsi);
+		if (cell.hasClass("timeslot-filled") && !cell.hasClass("timeslot-dequeued")) {
+  		calendar.viewTSInfo(cell.attr("data-ci"), cell.attr("data-tsi"));
 
   	// Show timeslot search modal if empty
 		} else if (!cell.hasClass("timeslot-queued")) {
@@ -238,6 +239,15 @@ $(document).ready(function(){
 		calendar.updateView();
 		sidebar.updateTimeslots();
 		Materialize.toast('Changes discarded', 4000);
+	});
+
+	// Dequeue course from modal
+	$("#modal-remove-btn").click(function() {
+		var m = $(this).closest(".modal");
+		courses[m.attr("data-ci")].timeslots[m.attr("data-tsi")].selected = false;
+		calendar.updateView();
+		sidebar.updateTimeslots();
+		m.closeModal();
 	});
 
 	calendar.updateView();
