@@ -1,69 +1,76 @@
-<!-- TODO:
-    Timeslots vs times of day (which one? former is probably easier to implement)
--->
-
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-    <link type="text/css" rel="stylesheet" href="css/cal.css" />
 
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+<head>
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/cal.css" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
 
-  <body>
-    <div class="row" id="content">
-      <div class="col s3" id="sidebar">
-        <div class="input-field">
-          <input id="search" type="text">
-          <label for="search">Search for courses...</label>
-        </div>
-        <div class='sidebar-scroll'>
-          <ul class="collapsible" data-collapsible="accordion">
-            <li>
-              <div class="collapsible-header"><i class="mdi-communication-call-split"></i>Filter</div>
-              <div class="collapsible-body course-filters">
-                <p>
-                  <input type="checkbox" id="checkbox-morning" />
-                  <label for="checkbox-morning">Morning Classes</label>
-                </p>
-                <p>
-                  <input type="checkbox" id="checkbox-afternoon" />
-                  <label for="checkbox-afternoon">Afternoon Classes</label>
-                </p>
-                <p>
-                  <input type="checkbox" id="checkbox-night" />
-                  <label for="checkbox-night">Night Classes</label>
-                </p>
-                <p>
-                  <input type="checkbox" id="checkbox-compulsory" />
-                  <label for="checkbox-compulsory">Compulsory</label>
-                </p>
-                <p>
-                  <input type="checkbox" id="checkbox-electives" />
-                  <label for="checkbox-electives">Electives</label>
-                </p>
-                <p>
-                  <input type="checkbox" id="checkbox-completed" />
-                  <label for="checkbox-completed">Completed</label>
-                </p>
-                <p>
-                  <input type="checkbox" id="checkbox-not-completed" />
-                  <label for="checkbox-not-completed">Not Yet Completed</label>
-                </p>
-              </div>
-            </li>
-          </ul>
-          <div class="search-results">
-            <ul class="collapsible popout" data-collapsible="accordion"></ul>
-          </div>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <div class="row content">
+    <div class="col s3" id="sidebar">
+      <div class="input-field">
+        <input id="search" type="text">
+        <label for="search">Search for courses...</label>
+      </div>
+      <div class='sidebar-scroll'>
+        <ul class="collapsible" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header"><i class="mdi-communication-call-split"></i>Filter</div>
+            <div class="collapsible-body course-filters">
+              <p>
+                <input type="checkbox" id="checkbox-morning" />
+                <label for="checkbox-morning">Morning Classes</label>
+              </p>
+              <p>
+                <input type="checkbox" id="checkbox-afternoon" />
+                <label for="checkbox-afternoon">Afternoon Classes</label>
+              </p>
+              <p>
+                <input type="checkbox" id="checkbox-night" />
+                <label for="checkbox-night">Night Classes</label>
+              </p>
+              <p>
+                <input type="checkbox" id="checkbox-compulsory" />
+                <label for="checkbox-compulsory">Compulsory</label>
+              </p>
+              <p>
+                <input type="checkbox" id="checkbox-electives" />
+                <label for="checkbox-electives">Electives</label>
+              </p>
+              <p>
+                <input type="checkbox" id="checkbox-completed" />
+                <label for="checkbox-completed">Completed</label>
+              </p>
+              <p>
+                <input type="checkbox" id="checkbox-not-completed" />
+                <label for="checkbox-not-completed">Not Yet Completed</label>
+              </p>
+            </div>
+          </li>
+        </ul>
+        <div class="search-results">
+          <ul class="collapsible popout" data-collapsible="accordion"></ul>
         </div>
       </div>
-      <div class="col s9" id="calendar">
+    </div>
+
+    <div class="col s9 content">
+      <div class="navbar-fixed" style='height:10%;'>
+        <nav>
+          <div class="nav-wrapper winter lighten-2">
+            <div style='padding-left:2%'>
+              <a href="#!" class="brand-logo">Course Planner</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div id="calendar">
         <table>
           <thead>
             <tr>
@@ -168,8 +175,6 @@
             </tr>
           </tbody>
         </table>
-
-        <!-- Apply/clear buttons (FABs) -->
         <div class="fixed-action-btn" id="fabs">
           <a class="btn-floating btn-large waves-effect waves-light red tooltipped btn-discard" data-position="top" data-delay="30" data-tooltip="Discard changes">
             <i class="mdi-av-replay"></i>
@@ -179,43 +184,52 @@
           </a>
         </div>
       </div>
+    </div>
 
-      <!-- Timeslot info modal -->
-      <div id="course-info-modal" class="modal">
-        <div class="modal-content">
-          <h4 class="ci-modal-name"></h4>
-          <p class="ci-modal-info">
-            <b>Course code: </b><span class="ci-modal-cc"></span>
-            <br>
-            <b>Professor: </b><span class="ci-modal-prof"></span>
-            <br>
-            <b>Location: </b><span class="ci-modal-loc"></span>
-            <br>
-            <b>Time:</b><span class="ci-modal-time"></span>
-          </p>
-        </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat teal">Dismiss</a>
-        </div>
+    <!-- Timeslot info modal -->
+    <div id="course-info-modal" class="modal">
+      <div class="modal-content">
+        <h4 class="ci-modal-name"></h4>
+        <p class="ci-modal-info">
+          <b>Course code: </b><span class="ci-modal-cc"></span>
+          <br>
+          <b>Professor: </b><span class="ci-modal-prof"></span>
+          <br>
+          <b>Location: </b><span class="ci-modal-loc"></span>
+          <br>
+          <b>Time:</b><span class="ci-modal-time"></span>
+        </p>
       </div>
-
-      <!-- Timeslot search modal -->
-      <div id="timeslot-search-modal" class="modal">
-        <div class="modal-content">
-          <h4 class="ts-modal-title"></h4>
-          <ul class="collection"></ul>
-        </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat teal">Dismiss</a>
-        </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat teal">Dismiss</a>
       </div>
     </div>
 
-    <script src="js/moment.min.js"></script>
-    <script type="text/javascript" src="js/courses.js"></script>
-    <script type="text/javascript" src='js/profile.js'></script>
+    <!-- Timeslot search modal -->
+    <div id="timeslot-search-modal" class="modal">
+      <div class="modal-content">
+        <h4 class="ts-modal-title"></h4>
+        <ul class="collection"></ul>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat teal">Dismiss</a>
+      </div>
+    </div>
+  </div>
 
-    <script type="text/javascript" src='js/sidebar.js'></script>
-    <script type="text/javascript" src="js/cal.js"></script>
-  </body>
+  <div class="switch">
+    <label>
+      <span>Winter</span>
+      <input class='checkbox-season' type="checkbox">
+      <span class="lever"></span> <span>Fall</span>
+    </label>
+  </div>
+  <script src="js/moment.min.js"></script>
+  <script type="text/javascript" src="js/courses.js"></script>
+  <script type="text/javascript" src='js/profile.js'></script>
+
+  <script type="text/javascript" src='js/sidebar.js'></script>
+  <script type="text/javascript" src="js/cal.js"></script>
+</body>
+
 </html>

@@ -171,6 +171,9 @@
     var courseFilters = $('.course-filters input[type=checkbox]');
 
     courseFilters.on('change', sidebar.populateList);
+    $('.checkbox-season').on('change', function(e){
+      $('.nav-wrapper').toggleClass('fall');
+    })
     el.addEventListener('keyup', sidebar.populateList, false);
     sidebar.populateList();
   }, false);
