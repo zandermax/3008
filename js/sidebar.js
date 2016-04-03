@@ -1,10 +1,8 @@
 (function() {
   'use strict';
-  document.addEventListener('DOMContentLoaded', function() {
-    var el = document.querySelector('#search');
-    var courseFilters = $('.course-filters input[type=checkbox]');
 
-    var filters = {
+  window.sidebar = {
+    filters: {
       'checkbox-morning': function(e){
         if(typeof e !== 'object') throw Error('requires[object]');
         return e.timeslots.some(function(t){
@@ -26,15 +24,8 @@
       },
       'checkbox-compulsary': function(){return true},
       'checkbox-electives':  function(){return true}
-    };
-
-    var highlightConflict = function(tsr, show) {
-      var ci = tsr.closest("li").attr("data-ci");
-      var tsi = tsr.attr("data-tsi");
-      calendar.showHideConflict(courses[ci].timeslots[tsi], show);
-    };
-
-    var updateTimeslots = function() {
+    },
+    updateTimeslots: function() {
       $(".search-results ul > li .collapsible-body input[type=checkbox]").each(function() {
         var ci = $(this).closest("li").attr("data-ci");
         var tsi = $(this).closest(".timeslot-row").attr("data-tsi");
@@ -42,21 +33,23 @@
         // Update timeslot checkboxes to reflect calendar state
         if (courses[ci].timeslots[tsi].selected || courses[ci].timeslots[tsi].added)
           $(this).attr("checked", true);
-
-        // Warn of course conflicts
-        else if (!calendar.isTSEmpty(courses[ci].timeslots[tsi])) {
-          $(this).attr("disabled", true);
-          $(this).siblings(".ts-icon").addClass("mdi-alert-warning");
-        }
         else {
-          $(this).attr("disabled", false);
-          $(this).siblings(".ts-icon").removeClass("mdi-alert-warning");
+          $(this).attr("checked", false);
+
+          // Warn of course conflicts
+          if (!calendar.isTSEmpty(courses[ci].timeslots[tsi])) {
+            $(this).attr("disabled", true);
+            $(this).siblings(".ts-icon").addClass("mdi-alert-warning");
+          }
+          else {
+            $(this).attr("disabled", false);
+            $(this).siblings(".ts-icon").removeClass("mdi-alert-warning");
+          }
         }
       });
-    };
-
-    var populateList = function() {
-      var v = el.value;
+    },
+    populateList: function() {
+      var v = document.querySelector('#search').value;
       var l = document.querySelector('.search-results ul');
       l.innerHTML = '';
 
@@ -81,7 +74,7 @@
         var checked = $('.course-filters input[type=checkbox]:checked');
         var pass = !checked.length;
         checked.each(function() {
-          pass |= filters[this.id](e);
+          pass |= sidebar.filters[this.id](e);
         });
         return pass;
       });
@@ -117,20 +110,29 @@
           "</li>";
       });
 
+      var highlightConflict = function(tsr, show) {
+        var ci = tsr.closest("li").attr("data-ci");
+        var tsi = tsr.attr("data-tsi");
+        calendar.showHideConflict(courses[ci].timeslots[tsi], show);
+      };
+
       // Timeslot checkbox handler
       $(".search-results ul > li .collapsible-body input[type=checkbox]").change(function() {
         var ci = $(this).closest("li").attr("data-ci");
         var tsi = $(this).closest(".timeslot-row").attr("data-tsi");
-        calendar[$(this).is(":checked") ? 'addCourse' : 'removeCourse'](courses[ci], tsi);
 
         courses[ci].timeslots[tsi].selected = $(this).is(":checked");
-        updateTimeslots();
 
         // Uncheck/remove other timeslots for this course
         $(this).siblings("input[type=checkbox]").each(function() {
           $(this).attr("checked", false);
-          calendar.removeCourse(courses[ci], $(this).closest(".timeslot-row").attr("data-tsi"));
+          courses[ci].timeslots[$(this).closest(".timeslot-row").attr("data-tsi")].selected = false;
         });
+
+        /* calendar.updateView() must be called before updateTimeslots()
+           due to the way calendar.isTSEmpty() works */
+        calendar.updateView();
+        sidebar.updateTimeslots();
       });
 
       // Timeslot hover handler
@@ -143,11 +145,16 @@
           highlightConflict($(this), false);
       });
 
-      updateTimeslots();
-    };
+      sidebar.updateTimeslots();
+    }
+  };
 
-    courseFilters.on('change', populateList);
-    el.addEventListener('keyup', populateList, false);
-    populateList();
+  document.addEventListener('DOMContentLoaded', function() {
+    var el = document.querySelector('#search');
+    var courseFilters = $('.course-filters input[type=checkbox]');
+
+    courseFilters.on('change', sidebar.populateList);
+    el.addEventListener('keyup', sidebar.populateList, false);
+    sidebar.populateList();
   }, false);
 })();
