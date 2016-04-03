@@ -56,7 +56,7 @@ var courses = [
       "prof": "Masako Hirotani",
       "location": "TB 360"
     }, {
-      "days": [3],
+      "days": [3, 5],
       "startTime": "19:05",
       "endTime": "20:25",
       "prof": "Randall Gess",
@@ -120,9 +120,9 @@ var courses = [
       "prof": "Jordan Dodd",
       "location": "MC 2000"
     }, {
-      "days": [2],
+      "days": [2, 4],
       "startTime": "08:35",
-      "endTime": "10:55",
+      "endTime": "09:55",
       "prof": "Gabriele Contessa",
       "location": "SA THB"
     }]
@@ -133,13 +133,13 @@ var courses = [
     "name": "Intorduction to Psychology I",
     "prereqs": [],
     "timeslots": [{
-      "days": [1],
+      "days": [1, 3],
       "startTime": "19:05",
       "endTime": "20:25",
       "prof": "Peter Aubin",
       "location": "MC 2000"
     }, {
-      "days": [2],
+      "days": [2, 4],
       "startTime": "19:05",
       "endTime": "20:25",
       "prof": "Kim O'Neil",
@@ -164,9 +164,9 @@ var courses = [
       "prof": "Peter Aubin",
       "location": "MC 2000"
     }, {
-      "days": [2],
+      "days": [2, 4],
       "startTime": "08:35",
-      "endTime": "10:55",
+      "endTime": "09:55",
       "prof": "Kim O'Neil",
       "location": "SA THB"
     }]
@@ -203,9 +203,9 @@ var courses = [
     "name": "Philosophy in Cognitive Science",
     "prereqs": [],
     "timeslots": [{
-      "days": [4],
+      "days": [2, 4],
       "startTime": "14:35",
-      "endTime": "15:25",
+      "endTime": "15:55",
       "prof": "Jim Davies",
       "location": "UC 231"
     }]
