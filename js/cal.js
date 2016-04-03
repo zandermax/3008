@@ -29,6 +29,7 @@
     	$("#calendar > table > tbody > tr > td").each(function() {
     		$(this).removeClass("timeslot-queued");
     		$(this).removeClass("timeslot-dequeued");
+    		$(this).removeClass("timeslot-filled");
     		$(this).html("");
     	});
 
@@ -47,13 +48,16 @@
 	    				cell.attr("data-tsi", tsi);
 	      			cell.html(h);
 
-	      			// Course only selected --> queued to be added
-	      			if (!ts.added)
-	      				cell.addClass("timeslot-queued");
+	      			if (ts.added) {
+	      				cell.addClass("timeslot-filled");
 
-	      			// Course only added --> queued to be removed
-	      			else if (!ts.selected)
-	      				cell.addClass("timeslot-dequeued");
+	      				if (!ts.selected)
+	      					// Course only added --> queued to be removed
+	      					cell.addClass("timeslot-dequeued");
+	      			}
+	      			// Course only selected --> queued to be added
+	      			else
+	      				cell.addClass("timeslot-queued");
 	      		});
     			}
     		});

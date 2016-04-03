@@ -124,9 +124,12 @@
         courses[ci].timeslots[tsi].selected = $(this).is(":checked");
 
         // Uncheck/remove other timeslots for this course
-        $(this).siblings("input[type=checkbox]").each(function() {
-          $(this).prop("checked", false);
-          courses[ci].timeslots[$(this).closest(".timeslot-row").attr("data-tsi")].selected = false;
+        $(this).closest("li").find("input[type=checkbox]").each(function() {
+          var tsi2 = $(this).closest(".timeslot-row").attr("data-tsi");
+          if (tsi2 != tsi) {
+            $(this).prop("checked", false);
+            courses[ci].timeslots[tsi2].selected = false;
+          }
         });
 
         /* calendar.updateView() must be called before updateTimeslots()
