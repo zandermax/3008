@@ -37,7 +37,7 @@
           $(this).prop("checked", false);
 
           // Warn of course conflicts
-          if (!calendar.isTSEmpty(courses[ci].timeslots[tsi])) {
+          if (!courses[ci].timeslots[tsi].added && !calendar.isTSEmpty(courses[ci].timeslots[tsi])) {
             $(this).attr("disabled", true);
             $(this).siblings(".ts-icon").addClass("mdi-alert-warning");
           }
