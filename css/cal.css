@@ -14,11 +14,6 @@ html, body, #content, #sidebar, #calendar {
     margin:0;
 }
 
-#sidebar > .search-results {
-    overflow: auto;
-    height:80%;
-}
-
 #calendar {
 	display:block;
 	height:100%;
@@ -50,6 +45,15 @@ html, body, #content, #sidebar, #calendar {
 }
 #calendar table thead {
 	font-weight:bold;
+}
+.input-field {
+	height:10%;
+}
+.sidebar-scroll {
+	padding-top:0;
+	height:85%;
+	padding:5px;
+	overflow:scroll;
 }
 .modal-action {
 	color:#f5f5f5;
