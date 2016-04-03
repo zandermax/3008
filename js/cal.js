@@ -46,7 +46,7 @@
     				var h = "<p class='timeslot-course-name'>" + c.dept + " " + c.num + "</p>" +
 	      						"<p class='timeslot-course-info'>" + ts.prof + "</p>" +
 	      						"<p class='timeslot-course-info'>" + ts.location + "</p>";
-	      		
+
 	      		// If course is on calendar in any way (even temporarily), show its info
 	      		cells.forEach(function(cell) {
 	      			var h2 = h;
@@ -141,9 +141,6 @@
     	var l = document.querySelector("#timeslot-search-modal .modal-content ul");
     	l.innerHTML = '';
 
-    	// Populate modal
-    	$("#timeslot-search-modal .ts-modal-title").text("Available courses for " + this.weekdays[d] + "s at " + st + " (click to add)");
-
     	// Filter courses occuring on this date and time
     	var results = courses.filter(function(c, ci) {
     		var found = false;
@@ -156,6 +153,9 @@
     		});
     		return found && !taken;
     	});
+      $("#timeslot-search-modal .ts-modal-title").text(
+        results.length ? "Available courses for " +
+        this.weekdays[d] + "s at " + st + " (click to add)" : "No available courses for this time slot.");
 
     	// Add found courses to the modal's list
     	results.forEach(function(c, ci) {
