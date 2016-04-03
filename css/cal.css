@@ -92,9 +92,13 @@ html, body, #content, #sidebar, #calendar {
 }
 
 .timeslot-error {
-	background-color: #E57373;
+	border: 3px solid #E57373 !important;
 }
 
 .timeslot-temp {
 	background-color: #FFF176;
+}
+
+.mdi-alert-warning {
+	color: #E57373;
 }

@@ -32,53 +32,73 @@
       });
   	},
     removeCourse: function(c, tsi) {
+    	// Remove course from calendar
       var timeslot = c.timeslots[tsi];
 
-      this.findTSCell(timeslot, function(cells) {
-        for (var i = 0; i < cells.length; ++i) {
-					cells[i].removeClass("timeslot-temp");
-					cells[i].attr("data-ci", null);
-					cells[i].attr("data-tsi", null);
-					cells[i].html("");
-        }
-      });
+      // Undo DOM changes
+      var cells = this.findTSCells(timeslot);
+      for (var i = 0; i < cells.length; ++i) {
+				cells[i].removeClass("timeslot-temp");
+				cells[i].attr("data-ci", null);
+				cells[i].attr("data-tsi", null);
+				cells[i].html("");
+      }
     },
     addCourse: function(c, tsi) {
+    	// Add course to the calendar
       var timeslot = c.timeslots[tsi];
 
-      this.findTSCell(timeslot, function(cells) {
-        var h = "<p class='timeslot-course-name'>" + c.dept + " " + c.num + "</p>" +
-          "<p class='timeslot-course-info'>" + timeslot.prof + "</p>" +
-          "<p class='timeslot-course-info'>" + timeslot.location + "</p>";
+      var cells = this.findTSCells(timeslot);
+	    var h = "<p class='timeslot-course-name'>" + c.dept + " " + c.num + "</p>" +
+	      "<p class='timeslot-course-info'>" + timeslot.prof + "</p>" +
+	      "<p class='timeslot-course-info'>" + timeslot.location + "</p>";
 
-        for (var i = 0; i < cells.length; ++i) {
-        	cells[i].addClass("timeslot-temp");
-        	cells[i].attr("data-ci", courses.indexOf(c));
-        	cells[i].attr("data-tsi", tsi);
-          cells[i].html(h);
-        }
-      });
+	    // Add for each day the class occurs on
+	    for (var i = 0; i < cells.length; ++i) {
+	    	cells[i].addClass("timeslot-temp");
+	    	cells[i].attr("data-ci", courses.indexOf(c));
+	    	cells[i].attr("data-tsi", tsi);
+	      cells[i].html(h);
+	    }
     },
-    findTSCell: function(ts, cb) {
+    findTSCells: function(ts) {
+    	// Find the DOM elements in the calendar for the timeslot
+
+    	var res = [];
       // Find row
       $("#calendar > table > tbody > tr > th").each(function() {
         if ($(this).text().trim().startsWith(ts.startTime)) {
-          var res = [];
-
           // find col
           for (var i = 0; i < ts.days.length; ++i)
             res.push($($(this).parent().find("td")[ts.days[i] - 1]));
-
-          cb(res);
-          return false;
         }
       });
+      return res;
     },
+    isTSEmpty: function(ts) {
+    	// True if the calendar table cell doesn't have a course or temp course in it
+    	var cells = this.findTSCells(ts);
+    	for (var i = 0 ; i < cells.length; ++i) {
+    		if (cells[i].hasClass("timeslot-filled") || cells[i].hasClass("timeslot-temp"))
+    			return false;
+    	}
+    	return true;
+    },
+    showHideConflict: function(ts, show) {
+    	var cells = this.findTSCells(ts);
+    	for (var i = 0 ; i < cells.length; ++i) {
+    		if (show)
+    			cells[i].addClass("timeslot-error");
+    		else
+    			cells[i].removeClass("timeslot-error");
+    	}
+    }
   };
 })();
 
 
 $(document).ready(function(){
+	// Timeslot click handler
 	$("#calendar table tbody tr td").click(function() {
 		var cell = $(this);
 
