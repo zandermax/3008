@@ -30,7 +30,7 @@
     		$(this).removeClass("timeslot-queued");
     		$(this).removeClass("timeslot-dequeued");
     		$(this).removeClass("timeslot-filled");
-    		$(this).html("");
+    		$(this).html("<i class='mdi-content-add'></i>");
     	});
 
     	$("#fabs").hide();
@@ -46,9 +46,10 @@
 	      		
 	      		// If course is on calendar in any way (even temporarily), show its info
 	      		cells.forEach(function(cell) {
+	      			var h2 = h;
+
 	    				cell.attr("data-ci", ci);
 	    				cell.attr("data-tsi", tsi);
-	      			cell.html(h);
 
 	      			if (ts.added) {
 	      				cell.addClass("timeslot-filled");
@@ -57,12 +58,16 @@
 	      					// Course only added --> queued to be removed
 	      					cell.addClass("timeslot-dequeued");
 	      					$("#fabs").show();
+	      					h2 += "<span class='cell-info'>To be removed</span>";
 	      				}
 	      			}	else {
 	      				// Course only selected --> queued to be added
 	      				cell.addClass("timeslot-queued");
 	      				$("#fabs").show();
+	      				h2 += "<span class='cell-info'>To be added</span>";
 	      			}
+
+	      			cell.html(h2);
 	      		});
     			}
     		});
@@ -154,4 +159,6 @@ $(document).ready(function(){
 		calendar.updateView();
 		sidebar.updateTimeslots();
 	});
+
+	calendar.updateView();
 });
