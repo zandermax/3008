@@ -1,10 +1,10 @@
 (function() {
   'use strict';
   window.calendar = {
+  	weekdays: ["Sunday", "Monday", "Tuesday","Wednesday",
+  						 "Thursday", "Friday", "Saturday"],
   	viewTSInfo: function(c, tsi) {
   		var ts = c.timeslots[tsi];
-  		var weekdays = ["Sunday", "Monday", "Tuesday","Wednesday",
-  										"Thursday", "Friday", "Saturday"];
 
   		// Populate modal
   		$("#course-info-modal .ci-modal-name").text(c.name);
@@ -15,7 +15,7 @@
   		// Format time string
   		var timeStr = "";
   		for (var i = 0; i < ts.days.length; ++i)
-  			timeStr += " " + weekdays[ts.days[i]];
+  			timeStr += " " + this.weekdays[ts.days[i]];
   		timeStr += ", " + ts.startTime + "-" + ts.endTime;
 
   		$("#course-info-modal .ci-modal-time").text(timeStr);
@@ -129,6 +129,61 @@
     		else
     			cells[i].removeClass("timeslot-error");
     	}
+    },
+    searchTSCourses: function(cell) {
+    	var st = cell.siblings("th").text().trim().split(" ")[0]; // Start time
+    	var d = cell.parent().children("td").index(cell)+1; // Day
+    	var l = document.querySelector("#timeslot-search-modal .modal-content ul");
+    	l.innerHTML = '';
+
+    	// Populate modal
+    	$("#timeslot-search-modal .ts-modal-title").text("Available courses for " + this.weekdays[d] + "s at " + st + " (click to add)");
+
+    	// Filter courses occuring on this date and time
+    	var results = courses.filter(function(c, ci) {
+    		var found = false;
+    		var taken = false;
+    		c.timeslots.forEach(function(ts, tsi) {
+    			if (ts.days.indexOf(d) > -1 && ts.startTime == st)
+    				found = true;
+    			if (ts.selected || ts.added)
+    				taken = true;
+    		});
+    		return found && !taken;
+    	});
+
+    	// Add found courses to the modal's list
+    	results.forEach(function(c, ci) {
+    		var tsi;
+    		c.timeslots.forEach(function(ts, i) {
+        	if (ts.days.indexOf(d) > -1 && ts.startTime == st)
+        		tsi = i;
+	      });
+
+    		var h = "<li class='collection-item' data-ci='" + courses.indexOf(c) + "' data-tsi='" + tsi + "'><div>" +
+	        			c.dept + " " + c.num + "<br/>" + c.name + "<br/>";
+        c.timeslots[tsi].days.forEach(function(day) {
+        	h += calendar.weekdays[day] + " ";
+        });
+	      h += "(" + c.timeslots[tsi].prof + ")" + "</div></li>";
+
+	      l.innerHTML = h;
+    	});
+
+    	$("#timeslot-search-modal .modal-content ul > li").click(function() {
+    		// Select course timeslot on click
+    		var ci = $(this).closest("li").attr("data-ci");
+        var tsi = $(this).closest("li").attr("data-tsi");
+        courses[ci].timeslots[tsi].selected = true;
+        calendar.updateView();
+        sidebar.updateTimeslots();
+        $("#timeslot-search-modal").closeModal();
+    	});
+
+			$("#timeslot-search-modal").openModal({
+        in_duration:100,
+        out_duration:100
+      });
     }
   };
 })();
@@ -142,9 +197,12 @@ $(document).ready(function(){
 		// Show timeslot info for course
 		if (cell.hasClass("timeslot-filled")) {
 			var c = courses[cell.attr("data-ci")];
-  			var tsi = cell.attr("data-tsi");
+  		var tsi = cell.attr("data-tsi");
+  		calendar.viewTSInfo(c, tsi);
 
-  			calendar.viewTSInfo(c, tsi);
+  	// Show timeslot search modal if empty
+		} else if (!cell.hasClass("timeslot-queued")) {
+			calendar.searchTSCourses(cell);
 		}
 	});
 

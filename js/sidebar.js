@@ -82,15 +82,12 @@
       // Add results to list
       f.forEach(function(e, i) {
         var tsHtml = '';
-        var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday"
-          ];
 
         e.timeslots.forEach(function(ts, j) {
           // Format time string
           var timeStr = "";
           for (var di = 0; di < ts.days.length; ++di)
-            timeStr += " " + weekdays[ts.days[di]];
+            timeStr += " " + calendar.weekdays[ts.days[di]];
           timeStr += ", " + ts.startTime + "-" + ts.endTime;
 
           var id = "ts-" + i + "-" + j;
