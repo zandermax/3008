@@ -4,26 +4,43 @@
   window.sidebar = {
     filters: {
       'checkbox-morning': function(e){
-        if(typeof e !== 'object') throw Error('requires[object]');
+        if(typeof e !== 'object')
+          throw new Error('requires[object]');
         return e.timeslots.some(function(t){
           return moment(t.startTime, 'h:mm').isBefore(moment('12:00', 'h:mm'));
         });
       },
       'checkbox-afternoon': function(e){
-        if(typeof e !== 'object') throw Error('requires[object]');
+        if(typeof e !== 'object')
+          throw new Error('requires[object]');
         return e.timeslots.some(function(t){
           return moment(t.startTime, 'h:mm').isAfter(moment('12:00', 'h:mm')) &&
                  moment(t.startTime, 'h:mm').isBefore(moment('17:00', 'h:mm'));
         });
       },
       'checkbox-night': function(e){
-        if(typeof e !== 'object') throw Error('requires[object]');
+        if(typeof e !== 'object')
+          throw new Error('requires[object]');
         return e.timeslots.some(function(t){
           return moment(t.startTime, 'h:mm').isAfter(moment('17:00', 'h:mm'));
         });
       },
-      'checkbox-compulsary': function(){return true},
-      'checkbox-electives':  function(){return true}
+      'checkbox-compulsory': function(e){
+        return window.profile.getCompulsory().some(function(i){
+          return i === e['dept'] + e['num'];
+        });
+      },
+      'checkbox-electives':  function(e){
+        return !this['checkbox-compulsory'](e);
+      },
+      'checkbox-completed': function(e){
+        return window.profile.getCompleted().some(function(i){
+          return i === e['dept'] + e['num'];
+        });
+      },
+      'checkbox-not-completed': function(e){
+        return !this['checkbox-completed'](e) && this['checkbox-compulsory'](e);
+      }
     },
     updateTimeslots: function() {
       $(".search-results ul > li .collapsible-body input[type=checkbox]").each(function() {
