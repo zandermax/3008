@@ -6,6 +6,7 @@ html, body{
 nav {
 	height:10%;
 }
+
 .collapsible-header .mdi-action-info-outline {
 	display:none;
 }
@@ -49,6 +50,13 @@ nav {
 	}
 }
 @media only screen and (max-width: 992px) {
+	.sidebar-nav {
+		position:absolute;
+		top:10%;
+		width:100% !important;
+		background: white !important;
+		display: block !important;
+	}
 	#sidebar {
 		display:none;
 	}
@@ -62,6 +70,7 @@ nav {
 		display:none;
 	}
 }
+
 #sidebar {
 	height:100%;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);

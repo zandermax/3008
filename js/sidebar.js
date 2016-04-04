@@ -116,7 +116,7 @@
         l.innerHTML += "<li data-ci='" + courses.indexOf(e) + "'>" +
           "<div style='position:relative' class='collapsible-header'>" +
           e.dept + " " + e.num + "<br/> " + e.name +
-          "<i style='position:absolute; right:-5%; top:20%; line-height:0.2' class=\"mdi-action-info-outline small\"></i>" +
+          "<i style='position:absolute; right:0; top:35%; line-height:0.2;' class=\"mdi-action-info-outline small\"></i>" +
           "</div>" +
           "<div class='collapsible-body'>" +
           "<b>Timeslots</b><br/>" +
@@ -180,5 +180,9 @@
     })
     el.addEventListener('keyup', sidebar.populateList, false);
     sidebar.populateList();
+    $('.button-collapse').click(function(){
+      console.log(true);
+      $('#sidebar').toggleClass('sidebar-nav');
+    });
   }, false);
 })();
