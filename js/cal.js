@@ -3,25 +3,39 @@
   window.calendar = {
   	weekdays: ["Sunday", "Monday", "Tuesday","Wednesday",
   						 "Thursday", "Friday", "Saturday"],
-  	viewTSInfo: function(ci, tsi) {
+  	viewCourseInfo: function(ci, tsi) {
   		var c = courses[ci];
   		var ts = c.timeslots[tsi];
 
   		// Populate modal
-  		$("#course-info-modal").attr("data-ci", ci);
-  		$("#course-info-modal").attr("data-tsi", tsi);
-  		$("#course-info-modal .ci-modal-name").text(c.name);
-  		$("#course-info-modal .ci-modal-cc").text(c.dept + " " + c.num);
-			$("#course-info-modal .ci-modal-prof").text(ts.prof);
-			$("#course-info-modal .ci-modal-loc").text(ts.location);
+      var m = $("#course-info-modal");
+  		m.attr("data-ci", ci);
 
-  		// Format time string
-  		var timeStr = "";
-  		for (var i = 0; i < ts.days.length; ++i)
-  			timeStr += " " + this.weekdays[ts.days[i]];
-  		timeStr += ", " + ts.startTime + "-" + ts.endTime;
+  		m.find(".ci-modal-name").text(c.name);
+  		m.find(".ci-modal-cc").text(c.dept + " " + c.num);
+      m.find(".ci-modal-desc").text(c.desc);
 
-  		$("#course-info-modal .ci-modal-time").text(timeStr);
+      // Only show timeslot-specific info if it's available
+      if (tsi) {
+        m.attr("data-tsi", tsi);
+        m.find(".ci-modal-prof").text(ts.prof);
+        m.find(".ci-modal-loc").text(ts.location);
+
+        // Format time string
+        var timeStr = "";
+        for (var i = 0; i < ts.days.length; ++i)
+          timeStr += " " + this.weekdays[ts.days[i]];
+        timeStr += ", " + ts.startTime + "-" + ts.endTime;
+
+        m.find(".ci-modal-time").text(timeStr);
+
+        m.find(".ci-modal-ts-specific").show();
+        $("#modal-remove-btn").show();
+      } else {
+        m.find(".ci-modal-ts-specific").hide();
+        $("#modal-remove-btn").hide();
+      }
+
   		$("#course-info-modal").openModal({
         in_duration:100,
         out_duration:100
@@ -202,7 +216,7 @@ $(document).ready(function(){
 		// Show timeslot info for course
 		if (!cell.hasClass("timeslot-dequeued")) {
 			if (cell.hasClass("timeslot-filled")) {
-  			calendar.viewTSInfo(cell.attr("data-ci"), cell.attr("data-tsi"));
+  			calendar.viewCourseInfo(cell.attr("data-ci"), cell.attr("data-tsi"));
 
 	  	// Show timeslot search modal if empty
 			} else if (!cell.hasClass("timeslot-queued")) {
