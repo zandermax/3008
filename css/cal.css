@@ -6,6 +6,18 @@ html, body{
 nav {
 	height:10%;
 }
+.collapsible-header .mdi-action-info-outline {
+	display:none;
+}
+.active .mdi-action-info-outline {
+	display:block !important;
+}
+.mdi-action-info-outline {
+	cursor: pointer;
+}
+.mdi-action-info-outline:hover {
+	color: grey;
+}
 .switch {
 	position:absolute;
 	right: 3%;
