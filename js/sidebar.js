@@ -114,8 +114,9 @@
 
         // Add entry for search result
         l.innerHTML += "<li data-ci='" + courses.indexOf(e) + "'>" +
-          "<div class='collapsible-header'>" +
+          "<div style='position:relative' class='collapsible-header'>" +
           e.dept + " " + e.num + "<br/> " + e.name +
+          "<i style='position:absolute; right:-5%; top:20%; line-height:0.2' class=\"mdi-action-info-outline small\"></i>" +
           "</div>" +
           "<div class='collapsible-body'>" +
           "<b>Timeslots</b><br/>" +
@@ -123,7 +124,10 @@
           "</div>" +
           "</li>";
       });
-
+      $('.mdi-action-info-outline').click(function(e){
+        window.calendar.viewCourseInfo($(this).parent().parent().data('ci'));
+        return false;
+      });
       var highlightConflict = function(tsr, show) {
         var ci = tsr.closest("li").attr("data-ci");
         var tsi = tsr.attr("data-tsi");

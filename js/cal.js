@@ -186,7 +186,7 @@
         });
 	      h += "(" + c.timeslots[tsi].prof + ")" + "</div></li>";
 
-	      l.innerHTML = h;
+	      l.innerHTML += h;
     	});
 
     	$("#timeslot-search-modal .modal-content ul > li").click(function() {
