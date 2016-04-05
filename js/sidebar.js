@@ -181,7 +181,7 @@
     el.addEventListener('keyup', sidebar.populateList, false);
     sidebar.populateList();
     $('.button-collapse').click(function(){
-      console.log(true);
+      $(this).toggleClass('sideways');
       $('#sidebar').toggleClass('sidebar-nav');
     });
   }, false);
