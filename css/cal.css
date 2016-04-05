@@ -28,7 +28,17 @@ nav {
 .switch label {
 	color:white;
 }
-
+.button-collapse {
+	transition: transform ease 0.5s;
+	-webkit-transition: transform ease 0.5s;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	left:5%;
+	top:50%;
+}
+.sideways {
+	transform: translate(-50%, -50%) rotate(90deg);
+}
 .winter {
 	background-color: #4db6ac !important;
 }
