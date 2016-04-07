@@ -15,6 +15,18 @@
   		m.find(".ci-modal-cc").text(c.dept + " " + c.num);
       m.find(".ci-modal-desc").text(c.desc);
 
+      var prs = "";
+
+      c.prereqs.forEach(function(p, i) {
+        if (i > 0)
+            prs += ", ";
+        prs += c.dept + " " + p;
+      });
+
+      if (prs == "") prs = "None";
+
+      m.find(".ci-modal-prereqs").text(prs);
+
       // Only show timeslot-specific info if it's available
       if (tsi) {
         m.attr("data-tsi", tsi);
